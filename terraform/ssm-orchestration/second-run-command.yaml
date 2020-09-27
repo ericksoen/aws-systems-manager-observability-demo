@@ -1,0 +1,20 @@
+---
+schemaVersion: '2.2'
+description: Run second script
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: RunSecondScript
+    inputs:
+      runCommand:
+        - |
+          Set-Location -Path $env:Temp
+          . .\functions.ps1
+
+          $path = "LogStack.tmp"
+
+          if (-Not (Test-Path $path)) {
+              New-Item -Path $path
+          }
+
+          addNewItem $path 'second-command'
+          finishItem $path

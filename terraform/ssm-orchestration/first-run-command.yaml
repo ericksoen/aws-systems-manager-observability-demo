@@ -1,0 +1,20 @@
+---
+schemaVersion: '2.2'
+description: Sample document
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: FirstRunCommand
+    inputs:
+      runCommand:
+        - |
+          Set-Location -Path $env:Temp
+          . .\functions.ps1
+
+          $path = "LogStack.tmp"
+
+          if (-Not (Test-Path $path)) {
+              New-Item -Path $path
+          }
+
+          addNewItem $path 'first-command'
+          finishItem $path

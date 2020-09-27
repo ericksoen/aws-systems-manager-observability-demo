@@ -1,0 +1,14 @@
+---
+schemaVersion: '2.2'
+description: LazyModuleImport
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: LazyModuleImport
+    inputs:
+      runCommand:
+        - |
+          $start = Get-Date
+          Get-EC2InstanceMetadata -Category InstanceId > /dev/null
+          $end = Get-Date
+          $elapsedTime = New-Timespan $start $end
+          Write-Host The total elapsed time was $elapsedTime.TotalMilliseconds

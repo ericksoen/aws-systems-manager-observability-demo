@@ -1,0 +1,18 @@
+---
+schemaVersion: '2.2'
+description: RequireModuleImport
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: RequireModuleImport
+    inputs:
+      runCommand:
+        - |
+          $start = Get-Date
+          Get-EC2InstanceMetadata -Category InstanceId > /dev/null
+          $end = Get-Date
+          $elapsedTime = New-Timespan $start $end
+          Write-Host The total elapsed time was $elapsedTime.TotalMilliseconds MS
+
+          if ($true -eq $false) {
+            #Requires -Modules AWSPowerShell
+          }

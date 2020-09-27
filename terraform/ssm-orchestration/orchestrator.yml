@@ -1,0 +1,24 @@
+---
+schemaVersion: '2.2'
+description: Orchestrator
+mainSteps:
+  - action: aws:runDocument
+    name: OpenTrace
+    inputs:
+      documentType: SSMDocument
+      documentPath: demo-open-trace
+  - action: aws:runDocument
+    name: FirstCommand
+    inputs:
+      documentType: SSMDocument
+      documentPath: demo-first
+  - action: aws:runDocument
+    name: SecondCommand
+    inputs:
+      documentType: SSMDocument
+      documentPath: demo-second
+  - action: aws:runDocument
+    name: CloseTrace
+    inputs:
+      documentType: SSMDocument
+      documentPath: demo-close

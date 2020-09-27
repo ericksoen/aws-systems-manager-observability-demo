@@ -1,0 +1,28 @@
+---
+schemaVersion: '2.2'
+description: OpenTrace
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: OpenTrace
+    inputs:
+      runCommand:
+        - |
+          Set-Location -Path $env:Temp
+          . .\functions.ps1
+
+          $path = "LogStack.tmp"
+
+          if (-Not (Test-Path $path)) {
+              New-Item -Path $path | Out-Null
+          }
+
+          $content = (Invoke-WebRequest http://169.254.169.254/latest/dynamic/instance-identity/document -UseBasicParsing).Content | ConvertFrom-Json
+
+          $context = @{
+            serviceName = 'ssm-provisioning'
+            instance_type =  $content.instanceType
+            ami_id        = $content.imageId
+            instance_id   = $content.instanceId
+          }
+
+          addNewItem $path 'init-script' $context

@@ -1,0 +1,4 @@
+dist
+.terraform
+terraform.*
+terraform.tfvars

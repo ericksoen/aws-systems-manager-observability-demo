@@ -1,0 +1,20 @@
+---
+schemaVersion: '2.2'
+description: ExplicitModuleImport
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: ExplicitModuleImport
+    inputs:
+      runCommand:
+        - |
+          $start = Get-Date
+          Import-Module AWSPowerShell
+          $end = Get-Date
+          $elapsedTime = New-Timespan $start $end
+          Write-Host The total elapsed time for module import was $elapsedTime.TotalMilliseconds MS
+
+          $commandStart = Get-Date
+          Get-EC2InstanceMetadata -Category InstanceId > /dev/null
+          $commandEnd = Get-Date
+          $elapsedCommandTime = New-Timespan $commandStart $commandEnd
+          Write-Host The total elapsed time for command execution was $elapsedCommandTime.TotalMilliseconds MS

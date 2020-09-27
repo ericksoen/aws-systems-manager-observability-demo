@@ -1,0 +1,19 @@
+---
+schemaVersion: '2.2'
+description: CloseTrace
+mainSteps:
+  - action: aws:runPowerShellScript
+    name: CloseTrace
+    inputs:
+      runCommand:
+        - |
+          Set-Location -Path $env:Temp
+          . .\functions.ps1
+
+          $path = "LogStack.tmp"
+
+          if (-Not (Test-Path $path)) {
+              New-Item -Path $path
+          }
+
+          finishItem $path
